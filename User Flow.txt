@@ -1,0 +1,9 @@
+
+## Standard User Flow
+
+1. A new user registers via the signup form.
+2. After logging in, they are taken to the homepage where they can enter ingredients.
+3. Submitting ingredients leads to a search results page with clickable meal options.
+4. Clicking a meal brings them to the detail page with full instructions and a video if available.
+5. From there, they can favorite the meal and optionally add a personal note.
+6. Their favorite meals and notes are accessible via the navbar links once logged in.

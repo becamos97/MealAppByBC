@@ -1,0 +1,148 @@
+
+/* ======= Light Mode ======= */
+
+body {
+  background-color: #FEFAE0;
+  color: #3c2f2f;
+}
+
+main {
+  background-color: #FEFAE0;
+  color: #3c2f2f;
+}
+
+/* Navbar */
+.navbar {
+  background-color: #CCD5AE !important;
+}
+
+.navbar .nav-link,
+.navbar .navbar-brand {
+  color: #3c2f2f !important;
+}
+
+/* Cards */
+.card {
+  background-color: #FAEDCD;
+  border: none;
+  color: #3c2f2f;
+}
+
+/* Inputs */
+input,
+textarea {
+  background-color: #ffffff;
+  color: #3c2f2f;
+  border: 1px solid #D4A373;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #D4A373;
+  border-color: #D4A373;
+}
+
+.btn-outline-primary {
+  border-color: #D4A373;
+  color: #D4A373;
+}
+
+.btn-outline-primary:hover {
+  background-color: #D4A373;
+  color: white;
+}
+
+/* Alerts */
+.alert {
+  background-color: #E9EDC9;
+  color: #3c2f2f;
+  border: 1px solid #D4A373;
+}
+
+/* Brand Text */
+.brand-text {
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #3c2f2f !important;
+}
+
+/* Dark Mode Toggle */
+#darkModeToggle {
+  color: #3c2f2f !important;
+}
+
+/* ======= Dark Mode ======= */
+
+.dark-mode {
+  background-color: #2b2d31;
+  color: #e3e5e8;
+}
+
+.dark-mode main {
+  background-color: #2b2d31;
+  color: #e3e5e8;
+}
+
+/* Navbar */
+.dark-mode .navbar {
+  background-color: #1e1f22 !important;
+}
+
+.dark-mode .navbar .nav-link,
+.dark-mode .navbar .navbar-brand {
+  color: #ffffff !important;
+}
+
+/* Cards */
+.dark-mode .card {
+  background-color: #313338;
+  border: none;
+  color: #ffffff;
+}
+
+/* Inputs */
+.dark-mode input,
+.dark-mode textarea {
+  background-color: #40444b;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+/* Buttons */
+.dark-mode .btn-primary {
+  background-color: #5865F2;
+  border-color: #5865F2;
+}
+
+.dark-mode .btn-outline-primary {
+  border-color: #5865F2;
+  color: #5865F2;
+}
+
+.dark-mode .btn-outline-primary:hover {
+  background-color: #5865F2;
+  color: white;
+}
+
+/* Alerts */
+.dark-mode .alert {
+  background-color: #40444b;
+  color: #ffffff;
+  border: 1px solid #5865F2;
+}
+
+/* Brand Text */
+.dark-mode .brand-text {
+  color: #ffffff !important;
+}
+
+/* Dark Mode Toggle */
+.dark-mode #darkModeToggle {
+  color: #ffffff !important;
+}
+
+.dark-mode .list-group-item {
+  background-color: #313338;
+  color: #ffffff;
+  border-color: #444;
+}
