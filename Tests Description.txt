@@ -1,0 +1,44 @@
+##tests/test_auth.py
+- test_register_user: Verifies that a new user can register and is redirected appropriately.
+
+- test_login_user: Checks that valid login credentials allow access and set the session.
+
+- test_logout_user: Confirms that logging out clears the session.
+
+##tests/test_meals.py
+- test_search_by_ingredient: Ensures the app returns meals matching a searched ingredient.
+
+- test_no_results_redirect: Verifies the user is shown a message or recommendation if no meals match.
+
+##tests/test_favorites.py
+- test_add_favorite: Confirms a meal can be favorited by a logged-in user.
+
+- test_remove_favorite: Ensures a user can unfavorite a meal and that it disappears from their list.
+
+- test_favorite_requires_login: Validates that favoriting isn’t allowed without being logged in.
+
+##tests/test_profile.py
+- test_profile_access: Checks if a logged-in user can view their profile page.
+
+- test_profile_requires_login: Ensures the profile page is protected and redirects unauthenticated users.
+
+##tests/test_routes.py
+- test_homepage_loads: Confirms that the homepage returns a 200 response and expected content.
+
+- test_404_page: Tests that a bad URL returns a 404 error with a custom error page.
+
+##tests/test_models.py
+- test_user_model: Confirms user is created with expected attributes and relationships.
+
+- test_meal_model: Verifies meal instances store proper data like name, category, and instructions.
+
+- test_favorite_relationship: Ensures user-to-favorite meal relationship works correctly (many-to-many).
+
+##tests/test_forms.py
+- test_register_form_validation: Verifies form correctly validates good and bad registration input.
+
+- test_login_form_validation: Checks login form accepts valid data and rejects invalid entries.
+
+- test_meal_note_form: Tests that users can submit personal notes or links to a meal correctly.
+
+- test_search_form: Confirms the search form handles input and raises no validation errors.

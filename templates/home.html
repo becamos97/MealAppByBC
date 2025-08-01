@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h2 class="mb-4">Search for Meals by Ingredients</h2>
+
+  <form method="POST" action="{{ url_for('search') }}" class="mb-4">
+    <div class="input-group">
+      <input type="text" name="ingredients" class="form-control" placeholder="e.g., chicken, rice" required>
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+
+  <h4>Recently Used Ingredients</h4>
+  {% if recent_ingredients %}
+    <ul class="list-group mb-4">
+      {% for ing in recent_ingredients %}
+        <li class="list-group-item">{{ ing }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No recent ingredients yet.</p>
+  {% endif %}
+
+  <h4>Your Favorite Meals</h4>
+  {% if favorites %}
+    <div class="row">
+      {% for meal in favorites %}
+        <div class="col-md-4 mb-4">
+          <div class="card h-100">
+            <img src="{{ meal.meal_image }}" class="card-img-top" alt="{{ meal.meal_name }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ meal.meal_name }}</h5>
+              <a href="{{ url_for('meal_detail', meal_id=meal.meal_id) }}" class="btn btn-outline-primary">View</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  <h4>Random Ingredient Picks</h4>
+  {% if random_ingredients %}
+    <div class="mb-4">
+      {% for ing in random_ingredients %}
+        <form method="POST" action="{{ url_for('search') }}" class="d-inline">
+          <input type="hidden" name="ingredients" value="{{ ing }}">
+          <button type="submit" class="btn btn-outline-success mb-2">{{ ing }}</button>
+        </form>
+      {% endfor %}
+    </div>
+{% else %}
+  <p class="text-muted">No random picks available right now.</p>
+{% endif %}
+</div>
+  {% else %}
+    <p class="text-muted">You haven’t saved any meals yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
