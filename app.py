@@ -24,6 +24,7 @@ import os
 import random
 import requests
 
+from urllib.parse import urlparse
 from flask import Flask, render_template, redirect, session, flash, request, url_for
 from models import db, connect_db, User, Favorite
 from forms import RegisterForm, LoginForm, ProfileEditForm, MealNoteForm
@@ -31,33 +32,26 @@ from meal_api import search_meals_by_ingredients, get_meal_details, extract_ingr
 
 app = Flask(__name__)
 
-
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'thisisbrandonsmealapp')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-# using DATABASE_URL from the environment
-raw_url = os.environ.get('DATABASE_URL', 'postgresql:///meals')
+db_url = os.environ.get('DATABASE_URL', 'postgresql:///meals')
+if db_url.startswith('postgres://'):
+    db_url = db_url.replace('postgres://', 'postgresql://', 1)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = raw_url
+app.config['SQLALCHEMY_DATABASE_URI'] = db_url
 
-# If we're connecting to a remote DB (not localhost), require SSL and keep pool healthy
-if 'localhost' not in raw_url and '127.0.0.1' not in raw_url:
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        "connect_args": {"sslmode": "require"},
-        "pool_pre_ping": True,
-        "pool_recycle": 300
-    }
-else:
-    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
-        "pool_pre_ping": True,
-        "pool_recycle": 300
-    }
+host = urlparse(db_url).hostname or ''
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'connect_args': {'sslmode': 'require'} if host and host not in ('localhost', '127.0.0.1') else {},
+    'pool_pre_ping': True,
+    'pool_recycle': 300,
+}
+
+print(f"[MealApp] DB → {host or 'local-socket'}")
 
 connect_db(app)
-
-with app.app_context():
-    db.create_all()
 
 #home route
 
