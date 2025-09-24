@@ -1,3 +1,26 @@
+# import random
+# import requests
+
+# from flask import Flask, render_template, redirect, session, flash, request, url_for
+# from models import db, connect_db, User, Favorite
+# from forms import RegisterForm, LoginForm, ProfileEditForm, MealNoteForm
+# from meal_api import search_meals_by_ingredients, get_meal_details, extract_ingredients, get_random_ingredients
+
+# app = Flask(__name__)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///meals'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# app.config['SECRET_KEY'] = 'thisisbrandonsmealapp'
+# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0", port=5000)
+
+# connect_db(app)
+
+# with app.app_context():
+#     db.create_all()
+
+import os
 import random
 import requests
 
@@ -7,13 +30,29 @@ from forms import RegisterForm, LoginForm, ProfileEditForm, MealNoteForm
 from meal_api import search_meals_by_ingredients, get_meal_details, extract_ingredients, get_random_ingredients
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///meals'
+
+
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'thisisbrandonsmealapp')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'thisisbrandonsmealapp'
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+# using DATABASE_URL from the environment
+raw_url = os.environ.get('DATABASE_URL', 'postgresql:///meals')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = raw_url
+
+# If we're connecting to a remote DB (not localhost), require SSL and keep pool healthy
+if 'localhost' not in raw_url and '127.0.0.1' not in raw_url:
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        "connect_args": {"sslmode": "require"},
+        "pool_pre_ping": True,
+        "pool_recycle": 300
+    }
+else:
+    app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+        "pool_pre_ping": True,
+        "pool_recycle": 300
+    }
 
 connect_db(app)
 
@@ -249,3 +288,5 @@ def page_not_found(e):
     return render_template("404.html"), 404
 
 
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
